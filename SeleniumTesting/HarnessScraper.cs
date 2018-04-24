@@ -32,7 +32,7 @@ namespace SeleniumTesting
             {
                 harnessLogin();
 
-                while(elementExists("next"))
+                while(true)
                 {
                     List<string> lines = new List<string>();
                     string line = "";                    
@@ -47,7 +47,10 @@ namespace SeleniumTesting
                             }
                             line += ",";
                         }
-                        lines.Add(line);
+                        if (line.Contains("Enrolled") && !line.Contains("{Bridge Run}"))
+                        {
+                            lines.Add(line);
+                        }
                         line = "";
                     }
 
@@ -61,7 +64,11 @@ namespace SeleniumTesting
                     if (elementExists("next"))
                     {
                         driver.FindElement(By.ClassName("next")).Click();
-                    }                        
+                    }
+                    else
+                    {
+                        break;
+                    }                       
                 }    
                 
                 
